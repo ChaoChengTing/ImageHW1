@@ -1,0 +1,40 @@
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.pdb
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.DebuggerVisualizers.VS2015.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.UI.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.UI.GL.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.World.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\ZedGraph.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.UI.xml
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.UI.GL.xml
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.World.xml
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\zh-Hant\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.Form1.resources
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.Properties.Resources.resources
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.csproj.GenerateResource.Cache
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.exe
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.pdb
+D:\school\DigitalImageProcessing_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.csprojResolveAssemblyReference.cache
+D:\school\助教\新增資料夾 (2)\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+D:\school\助教\新增資料夾 (2)\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.exe
+D:\school\助教\新增資料夾 (2)\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.pdb
+D:\school\助教\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+D:\school\助教\DigitalImageProcessing_EMGUCV_實做OK\DigitalImageProcessing_EMGUCV\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+D:\school\助教\DigitalImageProcessing_EMGUCV_DEMO_v2\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe.config
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\cvextern.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.exe
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\DigitalImageProcessing.pdb
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.DebuggerVisualizers.VS2015.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.UI.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\Emgu.CV.World.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\bin\x64\Debug\zh-Hant\Microsoft.VisualStudio.DebuggerVisualizers.resources.dll
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.csprojResolveAssemblyReference.cache
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.Form1.resources
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.Properties.Resources.resources
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.csproj.GenerateResource.Cache
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.exe
+C:\Users\chao\Desktop\University\Junior\ImageProcessing\HW1\DigitalImageProcessing\obj\x64\Debug\DigitalImageProcessing.pdb
