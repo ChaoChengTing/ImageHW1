@@ -159,6 +159,94 @@ namespace DigitalImageProcessing
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
 
+            int rows = source.Height;
+            int cols = source.Width;
+
+            byte[] bColor = new byte[rows * cols];
+            byte[] gColor = new byte[rows * cols];
+            byte[] rColor = new byte[rows * cols];
+            int[] bGrade = new int[256];
+            int[] gGrade = new int[256];
+            int[] rGrade = new int[256];
+            int[] bNew = new int[256];
+            int[] gNew = new int[256];
+            int[] rNew = new int[256];
+
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    bColor[y * cols + x] = (byte)source.Data[y, x, 0];  //B
+                    gColor[y * cols + x] = (byte)source.Data[y, x, 1];  //G
+                    rColor[y * cols + x] = (byte)source.Data[y, x, 2];  //R
+                }
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                bGrade[i] = 0;
+                gGrade[i] = 0;
+                rGrade[i] = 0;
+                for (int j = 0; j < rows * cols; j++)
+                {
+                    if (i == (int)bColor[j])
+                    {
+                        bGrade[i]++;
+                    }
+                    if (i == (int)gColor[j])
+                    {
+                        gGrade[i]++;
+                    }
+                    if (i == (int)rColor[j])
+                    {
+                        rGrade[i]++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                if (i != 0)
+                {
+                    bGrade[i] = bGrade[i - 1] + bGrade[i];
+                    if (bGrade[i - 1] != bGrade[i])
+                    {
+                        bNew[i] = (byte)(255 * bGrade[i] / (rows * cols));
+                    }
+                    gGrade[i] = gGrade[i - 1] + gGrade[i];
+                    if (gGrade[i - 1] != gGrade[i])
+                    {
+                        gNew[i] = (byte)(255 * gGrade[i] / (rows * cols));
+                    }
+                    rGrade[i] = rGrade[i - 1] + rGrade[i];
+                    if (rGrade[i - 1] != rGrade[i])
+                    {
+                        rNew[i] = (byte)(255 * rGrade[i] / (rows * cols));
+                    }
+                }
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    for (int x = 0; x < cols; x++)
+                    {
+                        if (bColor[y * cols + x] == i)
+                        {
+                            result.Data[y, x, 0] = (byte)bNew[i];
+                        }
+                        if (gColor[y * cols + x] == i)
+                        {
+                            result.Data[y, x, 1] = (byte)gNew[i];
+                        }
+                        if (rColor[y * cols + x] == i)
+                        {
+                            result.Data[y, x, 2] = (byte)rNew[i];
+                        }
+                    }
+                }
+            }
             return result;
         }
 
@@ -166,6 +254,28 @@ namespace DigitalImageProcessing
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
 
+            int rows = source.Height;
+            int cols = source.Width;
+
+            byte r, g, b;  //source
+            byte r2, g2, b2;  //source2
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    b = (byte)source.Data[y, x, 0];  //B from source
+                    g = (byte)source.Data[y, x, 1];  //G from source
+                    r = (byte)source.Data[y, x, 2];  //R from source
+
+                    b2 = (byte)source2.Data[y, x, 0];  //B from source2
+                    g2 = (byte)source2.Data[y, x, 1];  //G from source2
+                    r2 = (byte)source2.Data[y, x, 2];  //R from source2
+
+                    result.Data[y, x, 0] = (byte)(b * Threshold + b2 * (1 - Threshold));
+                    result.Data[y, x, 1] = (byte)(g * Threshold + g2 * (1 - Threshold));
+                    result.Data[y, x, 2] = (byte)(r * Threshold + r2 * (1 - Threshold));
+                }
+            }
             return result;
         }
 
