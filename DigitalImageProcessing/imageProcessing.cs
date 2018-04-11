@@ -284,6 +284,43 @@ namespace DigitalImageProcessing
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
 
+            int xCenter, yCenter, rows, cols;
+            int x_a;
+            int y_a;
+            int px, py;
+
+            rows = source.Width;
+            cols = source.Height;
+
+            //中心點
+            xCenter = (source.Width) / 2;
+            yCenter = (source.Height) / 2;
+
+            for (int i = 0; i < rows; i++)
+            {
+
+                x_a = i - xCenter;
+
+                for (int j = 0; j < cols; j++)
+                {
+
+                    y_a = j - yCenter;
+
+                    //轉換座標
+                    px = (int)(x_a * Math.Cos(-theta / 180 * Math.PI) - y_a * Math.Sin(-theta / 180 * Math.PI)) + xCenter;
+                    py = (int)(y_a * Math.Cos(-theta / 180 * Math.PI) + x_a * Math.Sin(-theta / 180 * Math.PI)) + yCenter;
+
+                    if (px >= 0 && px < rows && py >= 0 && py < cols)
+                    {
+                        result.Data[j, i, 0] = source.Data[py, px, 0];
+                        result.Data[j, i, 1] = source.Data[py, px, 1];
+                        result.Data[j, i, 2] = source.Data[py, px, 2];
+                    }
+
+                }
+            }
+            return result;
+
             return result;
         }
     }
