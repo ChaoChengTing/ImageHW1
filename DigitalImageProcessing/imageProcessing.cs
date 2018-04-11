@@ -276,6 +276,7 @@ namespace DigitalImageProcessing
                     result.Data[y, x, 2] = (byte)(r * Threshold + r2 * (1 - Threshold));
                 }
             }
+
             return result;
         }
 
