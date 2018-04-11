@@ -166,6 +166,29 @@ namespace DigitalImageProcessing
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
 
+            int rows = source.Height;
+            int cols = source.Width;
+
+            byte r, g, b;  //source
+            byte r2, g2, b2;  //source2
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    b = (byte)source.Data[y, x, 0];  //B from source
+                    g = (byte)source.Data[y, x, 1];  //G from source
+                    r = (byte)source.Data[y, x, 2];  //R from source
+
+                    b2 = (byte)source2.Data[y, x, 0];  //B from source2
+                    g2 = (byte)source2.Data[y, x, 1];  //G from source2
+                    r2 = (byte)source2.Data[y, x, 2];  //R from source2
+
+                    result.Data[y, x, 0] = (byte)(b * Threshold + b2 * (1 - Threshold));
+                    result.Data[y, x, 1] = (byte)(g * Threshold + g2 * (1 - Threshold));
+                    result.Data[y, x, 2] = (byte)(r * Threshold + r2 * (1 - Threshold));
+                }
+            }
+
             return result;
         }
 
