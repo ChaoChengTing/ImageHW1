@@ -283,7 +283,30 @@ namespace DigitalImageProcessing
         public static Image<Bgr, Byte> Rotating(Image<Bgr, Byte> source, double theta)
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
+            int rows = source.Height;
+            int cols = source.Width;
+            int newX = 0;
+            int newY = 0;
 
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    int centerX = x - cols / 2;
+                    int centerY = y - rows / 2;
+                    double angle = -theta / 180 * Math.PI;
+
+                    newX = (int)(Math.Cos(angle) * centerX - Math.Sin(angle) * centerY) + cols / 2;
+                    newY = (int)(Math.Sin(angle) * centerX + Math.Cos(angle) * centerY) + rows / 2;
+
+                    if (newX >= 0 && newX < cols && newY >= 0 && newY < rows)
+                    {
+                        result.Data[y, x, 0] = source.Data[newY, newX, 0];
+                        result.Data[y, x, 1] = source.Data[newY, newX, 1];
+                        result.Data[y, x, 2] = source.Data[newY, newX, 2];
+                    }
+                }
+            }
             return result;
         }
     }
