@@ -61,7 +61,7 @@ namespace DigitalImageProcessing
         public static Image<Bgr, Byte> ConvertToOtsu(Image<Bgr, Byte> source)
         {
             Image<Bgr, Byte> result = new Image<Bgr, Byte>(source.Width, source.Height);
-            int[,] grayColor = new int[256, 3];
+            int[,] grayColor = new int[256, 3]; //[灰階的數字(0~255),每一個灰階有幾個像素,前兩項相乘(用來算平均)]
             byte gray = 0;
             int rows = source.Height;
             int cols = source.Width;
@@ -73,7 +73,7 @@ namespace DigitalImageProcessing
             byte t = 0, finalT = 0;
             byte r, g, b;
 
-            for (int i = 0; i < 256; i++)
+            for (int i = 0; i < 256; i++) //初始化二維陣列值
             {
                 grayColor[i, 0] = i;
                 grayColor[i, 1] = 0;
@@ -89,7 +89,7 @@ namespace DigitalImageProcessing
                     gray = (byte)(b * 0.114 + g * 0.587 + r * 0.299);
                     for (int i = 0; i < 256; i++)
                     {
-                        if (gray == grayColor[i, 0]) grayColor[i, 1]++;
+                        if (gray == grayColor[i, 0]) grayColor[i, 1]++; //判斷每一個灰階有幾個像素
                     }
                     meanAverage += gray; //灰階總數
                 }
@@ -101,34 +101,34 @@ namespace DigitalImageProcessing
                 grayColor[i, 2] = grayColor[i, 0] * grayColor[i, 1];
             }
 
-            for (t = 0; t < 255; t++)
+            for (t = 0; t < 255; t++) //閥值(Threshold) t從0開始到255去做比較 取出最好的t值
             {
-                n0 = 0;
-                n1 = 0;
-                I0 = 0;
-                I1 = 0;
+                n0 = 0; //小於閥值的總像素
+                n1 = 0; //大於閥值的總像素
+                I0 = 0; //小於閥值的總像素*灰階值(算平均用)
+                I1 = 0; //大於閥值的總像素*灰階值(算平均用)
                 for (int i = 0; i < 256; i++)
                 {
-                    if (grayColor[i, 0] < t)
+                    if (grayColor[i, 0] < t) //小於閥值的部分
                     {
                         n0 += grayColor[i, 1];
                         I0 += grayColor[i, 2];
                     }
-                    else
+                    else //大於等於閥值的部分
                     {
                         n1 += grayColor[i, 1];
                         I1 += grayColor[i, 2];
                     }
                 }
-                if (n0 == 0 || n1 == 0) continue;
+                if (n0 == 0 || n1 == 0) continue; //避免分母為0
                 else
                 {
-                    smallerAverage = I0 / n0;
-                    biggerAverage = I1 / n1;
-                    w0 = n0 / totalPixel;
-                    w1 = n1 / totalPixel;
-                    tempG = (int)(w0 * w1 * Math.Abs((biggerAverage - meanAverage) * (smallerAverage - meanAverage)));
-                    if (tempG > finalG)
+                    smallerAverage = I0 / n0; //小於閥值的總平均
+                    biggerAverage = I1 / n1; //大於閥值的總平均
+                    w0 = n0 / totalPixel; //算出整張圖片<t的部分占多少
+                    w1 = n1 / totalPixel; //算出整張圖片>t的部分占多少
+                    tempG = (int)(w0 * w1 * Math.Abs((biggerAverage - meanAverage) * (smallerAverage - meanAverage))); //公式
+                    if (tempG > finalG) //tempG的值越高表示Threshold值越好
                     {
                         finalG = tempG;
                         finalT = t;
@@ -136,7 +136,7 @@ namespace DigitalImageProcessing
                 }
             }
 
-            for (int y = 0; y < rows; y++) //利用平均灰階計算二值化
+            for (int y = 0; y < rows; y++) //利用利用上面計算出的t計算二值化
             {
                 for (int x = 0; x < cols; x++)
                 {
