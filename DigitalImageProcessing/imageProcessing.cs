@@ -161,93 +161,67 @@ namespace DigitalImageProcessing
 
             int rows = source.Height;
             int cols = source.Width;
-
-            byte[] bColor = new byte[rows * cols];
-            byte[] gColor = new byte[rows * cols];
-            byte[] rColor = new byte[rows * cols];
-            int[] bGrade = new int[256];
+            int pixels = rows * cols;
+            
+            int[] bGrade = new int[256];  //統計所有色階值的數量(0~rows*cols)
             int[] gGrade = new int[256];
             int[] rGrade = new int[256];
-            int[] bNew = new int[256];
-            int[] gNew = new int[256];
-            int[] rNew = new int[256];
-
+            int bLastValue = 0;  //儲存上一次的Grade總和
+            int gLastValue = 0;
+            int rLastValue = 0;
+            int bMinCDF = 255;  //儲存圖片中最少的色階
+            int gMinCDF = 255;
+            int rMinCDF = 255;
+            byte[] bNew = new byte[256];  //儲存原色階轉化後新的值(0~255)
+            byte[] gNew = new byte[256];
+            byte[] rNew = new byte[256];
+            
             for (int y = 0; y < rows; y++)
             {
                 for (int x = 0; x < cols; x++)
                 {
-                    bColor[y * cols + x] = (byte)source.Data[y, x, 0];  //B
-                    gColor[y * cols + x] = (byte)source.Data[y, x, 1];  //G
-                    rColor[y * cols + x] = (byte)source.Data[y, x, 2];  //R
+                    bGrade[source.Data[y, x, 0]]++;  //統計每個色階的像素量
+                    gGrade[source.Data[y, x, 1]]++;
+                    rGrade[source.Data[y, x, 2]]++;
                 }
             }
 
-            for (int i = 0; i < 256; i++)
-            {
-                bGrade[i] = 0;
-                gGrade[i] = 0;
-                rGrade[i] = 0;
-                for (int j = 0; j < rows * cols; j++)
-                {
-                    if (i == (int)bColor[j])
-                    {
-                        bGrade[i]++;
-                    }
-                    if (i == (int)gColor[j])
-                    {
-                        gGrade[i]++;
-                    }
-                    if (i == (int)rColor[j])
-                    {
-                        rGrade[i]++;
-                    }
-                }
-            }
+            bMinCDF = bGrade[0];  //儲存最小CDF
+            gMinCDF = gGrade[0];
+            rMinCDF = rGrade[0];
 
             for (int i = 0; i < 256; i++)
             {
-                if (i != 0)
+                bGrade[i] = bLastValue + bGrade[i];  //將這個色階數量轉為CDF
+                gGrade[i] = gLastValue + gGrade[i];
+                rGrade[i] = rLastValue + rGrade[i];
+                if (bGrade[i] != bLastValue) //此圖片中若有這個色階
                 {
-                    bGrade[i] = bGrade[i - 1] + bGrade[i];
-                    if (bGrade[i - 1] != bGrade[i])
-                    {
-                        bNew[i] = (byte)(255 * bGrade[i] / (rows * cols));
-                    }
-                    gGrade[i] = gGrade[i - 1] + gGrade[i];
-                    if (gGrade[i - 1] != gGrade[i])
-                    {
-                        gNew[i] = (byte)(255 * gGrade[i] / (rows * cols));
-                    }
-                    rGrade[i] = rGrade[i - 1] + rGrade[i];
-                    if (rGrade[i - 1] != rGrade[i])
-                    {
-                        rNew[i] = (byte)(255 * rGrade[i] / (rows * cols));
-                    }
+                    bLastValue = bGrade[i];  //更新CDF的色階總數
+                    bNew[i] = (byte)(255 * (bLastValue - bMinCDF) / (pixels - bMinCDF));  //計算新的色階
+                }
+                if (gGrade[i] != gLastValue)
+                {
+                    gLastValue = gGrade[i];
+                    gNew[i] = (byte)(255 * (gLastValue - gMinCDF) / (pixels - gMinCDF));
+                }
+                if (rGrade[i] != rLastValue)
+                {
+                    rLastValue = rGrade[i];
+                    rNew[i] = (byte)(255 * (rLastValue - rMinCDF) / (pixels - rMinCDF));
                 }
             }
-
-            for (int i = 0; i < 256; i++)
+            
+            for (int y = 0; y < rows; y++)
             {
-                for (int y = 0; y < rows; y++)
+                for (int x = 0; x < cols; x++)
                 {
-                    for (int x = 0; x < cols; x++)
-                    {
-                        if (bColor[y * cols + x] == i)
-                        {
-                            result.Data[y, x, 0] = (byte)bNew[i];
-                        }
-                        if (gColor[y * cols + x] == i)
-                        {
-                            result.Data[y, x, 1] = (byte)gNew[i];
-                        }
-                        if (rColor[y * cols + x] == i)
-                        {
-                            result.Data[y, x, 2] = (byte)rNew[i];
-                        }
-                    }
+                    result.Data[y, x, 0] = bNew[source.Data[y, x, 0]];  //將原色階轉化為新色階輸出到結果
+                    result.Data[y, x, 1] = gNew[source.Data[y, x, 1]];
+                    result.Data[y, x, 2] = rNew[source.Data[y, x, 2]];
                 }
             }
-            return result;
+        return result;
         }
 
         public static Image<Bgr, Byte> imageBlending(Image<Bgr, Byte> source, Image<Bgr, Byte> source2, double Threshold)
@@ -271,7 +245,7 @@ namespace DigitalImageProcessing
                     g2 = (byte)source2.Data[y, x, 1];  //G from source2
                     r2 = (byte)source2.Data[y, x, 2];  //R from source2
 
-                    result.Data[y, x, 0] = (byte)(b * Threshold + b2 * (1 - Threshold));
+                    result.Data[y, x, 0] = (byte)(b * Threshold + b2 * (1 - Threshold));  //將第一張圖與第二張圖照比例分配輸出結果
                     result.Data[y, x, 1] = (byte)(g * Threshold + g2 * (1 - Threshold));
                     result.Data[y, x, 2] = (byte)(r * Threshold + r2 * (1 - Threshold));
                 }
@@ -292,16 +266,16 @@ namespace DigitalImageProcessing
             {
                 for (int x = 0; x < cols; x++)
                 {
-                    int centerX = x - cols / 2;
+                    int centerX = x - cols / 2;  //切換為以中間為基準的座標
                     int centerY = y - rows / 2;
-                    double angle = -theta / 180 * Math.PI;
+                    double angle = -theta / 180 * Math.PI;  //將新圖所旋轉的角度回推原圖所旋轉的弧度
 
-                    newX = (int)(Math.Cos(angle) * centerX - Math.Sin(angle) * centerY) + cols / 2;
+                    newX = (int)(Math.Cos(angle) * centerX - Math.Sin(angle) * centerY) + cols / 2;  //計算旋轉前的座標
                     newY = (int)(Math.Sin(angle) * centerX + Math.Cos(angle) * centerY) + rows / 2;
 
-                    if (newX >= 0 && newX < cols && newY >= 0 && newY < rows)
+                    if (newX >= 0 && newX < cols && newY >= 0 && newY < rows)  //若輸出的圖還在原圖範圍中
                     {
-                        result.Data[y, x, 0] = source.Data[newY, newX, 0];
+                        result.Data[y, x, 0] = source.Data[newY, newX, 0];  //在新座標輸出原座標資料
                         result.Data[y, x, 1] = source.Data[newY, newX, 1];
                         result.Data[y, x, 2] = source.Data[newY, newX, 2];
                     }
